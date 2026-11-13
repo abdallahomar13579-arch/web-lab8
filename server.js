@@ -36,3 +36,23 @@ app.use(express.static(PUBLIC_DIR));
 app.get('/hello', (req, res) => {
   res.type('text/plain').send("Hello from Abdallah's server");
 });
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send('User-agent: *\nDisallow: /api/\n');
+});
+ 
+app.get('/old-page', (req, res) => {
+  res.redirect('/hello');
+});
+ 
+app.get('/api/courses', (req, res) => {
+  res.json(COURSES);
+});
+ 
+app.get('/api/status', (req, res) => {
+  res.json({
+    status: 'ok',
+    nodeVersion: process.version,
+    uptimeSeconds: Math.round(process.uptime()),
+  });
+});
